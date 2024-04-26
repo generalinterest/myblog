@@ -1,0 +1,2 @@
+# myblog
+testing wordpress static
