@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Cloudflare Zero Trust &#8211; generalinterest</title>
+	<atom:link href="" rel="self" type="application/rss+xml" />
+	<link>../../../../index.html</link>
+	<description></description>
+	<lastBuildDate>Wed, 24 Apr 2024 15:13:46 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.5.2</generator>
+	<item>
+		<title>KINDE OIDC</title>
+		<link>../../../kinde-oidc/index.html</link>
+					<comments>../../../kinde-oidc/index.html#respond</comments>
+		
+		<dc:creator><![CDATA[brian]]></dc:creator>
+		<pubDate>Wed, 24 Apr 2024 15:13:46 +0000</pubDate>
+				<category><![CDATA[Cloudflare Zero Trust]]></category>
+		<category><![CDATA[idp]]></category>
+		<category><![CDATA[kinde]]></category>
+		<guid isPermaLink="false">../../../../index.html?p=17</guid>
+
+					<description><![CDATA[OIDC Authentication and Authorisation for Cloudflare tunnel with “Kinde” Website: https://kinde.com/ Posted this on Kinde Discord feedback channel https://discord.com/channels/1070212618549219328/1162110647748808764/1225364680244199437 I wonder if you can add]]></description>
+										<content:encoded><![CDATA[
+<pre class="wp-block-preformatted">OIDC Authentication and Authorisation for Cloudflare tunnel with “Kinde”
+
+Website: https://kinde.com/
+
+
+Posted this on Kinde Discord feedback channel
+https://discord.com/channels/1070212618549219328/1162110647748808764/1225364680244199437
+
+I wonder if you can add a piece to the Cloudflare Zero Trust doc to advise that the Claims that Cloudflare can use can be taken from the ID Token doc…
+
+ https://kinde.com/docs/authentication-and-access/cloudflare-zero-trust/
+
+https://kinde.com/docs/build/about-id-tokens/
+
+It seems to be a stumbling block trying to get Cloudflare Zero Trust OIDC working.
+
+And Thank You for making the org_codes available, it’s just what I needed!
+
+
+
+
+Create a Free Account.
+
+login with Google
+
+Create a Kinde Business “mybusiness”  this will be come the hostname of the FQDN for your OIDC endpoints and such.
+So make sure it's a valid hostname syntax for a url.
+
+mybusiness.kinde.com   (IDP)
+
+https://kinde.com/docs/authentication-and-access/cloudflare-zero-trust/
+
+Create the App in Kinde, it can be any app, you will not need to build it or deploy it any place.  It’s just a label for our purposes.
+
+The apps Client ID and Secret you get from the app are what allows Cloudflare to connect to your OIDC endpoints.
+
+I cannot find a way yet to get the Kinde Roles/Permissions working in Claims.   Cloudflare seems to only request OIDC without OAUTH2.  That means no Authorisation Token and hence no Roles/Permissions :( 
+
+However, the ID Token does include the org_codes for the User and we can use this for simple authorisation.
+I do not see any limit on the number of Organizations you can create in Kinde. 
+
+TODO Also need to find a way to process the claim if a User has multiple org_codes. Cloudflare can test for a single value of a claim.  Not sure if it can parse the claim for a specific org_codes value.
+
+The org_codes are not the Name of the Organization, but a code...
+
+org_codes:
+MyOrg is org_1234567890
+Admin is org_0987654321
+
+
+If I can find a way to get OAUTH2 to work then the Free Tier of Kinde allows you to configure Authentication with 2 Roles and up to 11 Permissions.   
+There is no nesting of Roles or Permissions.
+
+Research Sources
+https://kinde.com/docs/build/about-id-tokens/
+https://kinde.com/docs/authentication-and-access/cloudflare-zero-trust/
+https://kinde.com/docs/build/token-customization/
+https://updates.kinde.com/board/custom-claims/
+https://developers.cloudflare.com/cloudflare-one/identity/idp-integration/generic-oidc/</pre>
+]]></content:encoded>
+					
+					<wfw:commentRss>../../../kinde-oidc/feed/index.html</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>AUTH0 SAML</title>
+		<link>../../../auth0-saml/index.html</link>
+					<comments>../../../auth0-saml/index.html#respond</comments>
+		
+		<dc:creator><![CDATA[brian]]></dc:creator>
+		<pubDate>Wed, 24 Apr 2024 15:11:59 +0000</pubDate>
+				<category><![CDATA[auth0]]></category>
+		<category><![CDATA[Cloudflare Zero Trust]]></category>
+		<category><![CDATA[idp]]></category>
+		<guid isPermaLink="false">../../../../index.html?p=15</guid>
+
+					<description><![CDATA[AUTH0 Supports SAML which can provide Authorisation as well as Authentication. It looks like you need Cloudflare Authentication to use generic SAML 2.0 to pass]]></description>
+										<content:encoded><![CDATA[
+<pre class="wp-block-preformatted">AUTH0 Supports SAML which can provide Authorisation as well as Authentication.
+
+It looks like you need Cloudflare Authentication to use generic SAML 2.0 to pass claims outside the ID Token.
+
+https://jjtechtips.com/posts/Auth0-SAML-Cloudflare-Zero-trust/
+
+This gets you to the same level as generic OIDC Authentication, where the only thing you have is the email address.  
+
+now figure how to get the Roles/Permissions 
+
+This shows the general method to get fields back - the email address works out of the box.
+https://community.cloudflare.com/t/auth0-saml-working-but-returned-fields-missing/255515
+
+See how to add Roles…
+https://community.auth0.com/t/how-to-add-roles-and-permissions-to-the-id-token-using-actions/84506
+TODO the doc above points to get Authorisation methods.
+
+My auth0 action
+
+login/post-login npm script…
+
+exports.onExecutePostLogin = async (event, api) =&gt; {
+  const namespace = 'http://blah.generalinterest.net';
+  if (event.authorization) {
+    api.idToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);
+  }
+};
+
+this comes in Cloudflare SAML Authentication and also Application Policy.
+Note how the fqdn url is changed from “.” notation to “;” …
+
+http://schemas.auth0.com/http://blah;mybusiness;net/roles
+
+Cloudflare Polic can test this SAML Attribute = MyOrg.
+
+Addon: SAML2 Web App
+
+SettingsUsage
+
+SAML Protocol Configuration Parameters
+		SAML Version:&nbsp;2.0
+		Issuer:&nbsp;urn:dev-1234567890.eu.auth0.com
+		Identity Provider Certificate:&nbsp;Download Auth0 certificate 
+		Identity Provider SHA1 fingerprint:&nbsp;14:E4:F5:30:D8:75:6D:24:6E:34:C7:97:A6:30:2C:DD:0E:5A:E8:2E
+		Identity Provider Login URL:&nbsp;https://dev-1234567890.eu.auth0.com/samlp/XBqF6sJKss0JbI8gxIuBv5juMqyra4GE 
+		Identity Provider Metadata:&nbsp;Download 
+Alternatively, you can add a connection parameter:
+		https://dev-1234567890.eu.auth0.com/samlp/XBqF6sJKss0JbI8gxIuBv5juMqyra4GE?connection=Username-Password-Authentication 
+
+In this case, Auth0 will redirect users to the specified&nbsp;connectionand will not display the Login Widget. Make sure you send the SAMLRequest using&nbsp;HTTP POST.
+
+
+</pre>
+]]></content:encoded>
+					
+					<wfw:commentRss>../../../auth0-saml/feed/index.html</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+		<item>
+		<title>Auth0 OIDC</title>
+		<link>../../../auth0/index.html</link>
+					<comments>../../../auth0/index.html#respond</comments>
+		
+		<dc:creator><![CDATA[brian]]></dc:creator>
+		<pubDate>Wed, 24 Apr 2024 15:05:35 +0000</pubDate>
+				<category><![CDATA[auth0]]></category>
+		<category><![CDATA[Cloudflare Zero Trust]]></category>
+		<category><![CDATA[idp]]></category>
+		<guid isPermaLink="false">../../../../index.html?p=11</guid>
+
+					<description><![CDATA[AUTH0 attemptlogin with google email address.Domain: dev-1234567890.eu.auth0.comAgain create an App has a placeholder only.In the App Details…Allowed callback URLs:mybusiness.cloudflareaccess/cdn-cgi/access/callbackThe Well Known Configuration:https://dev-1234567890.eu.auth0.com/.well-known/openid-configurationAUTH0 does not have]]></description>
+										<content:encoded><![CDATA[
+<pre class="wp-block-preformatted">AUTH0 attempt<br><br>login with google email address.<br><br>Domain: dev-1234567890.eu.auth0.com<br><br>Again create an App has a placeholder only.<br><br>In the App Details…<br>Allowed callback URLs:<br>mybusiness.cloudflareaccess/cdn-cgi/access/callback<br><br><br>The Well Known Configuration:<br>https://dev-1234567890.eu.auth0.com/.well-known/openid-configuration<br><br><br>AUTH0 does not have the extended ID Token that Kinde provides (org_groups), so it will need something more.<br><br>https://auth0.com/blog/adding-custom-claims-to-id-token-with-auth0-actions/<br><br>This shows how to add the Roles to the ID Token.  To get Permissions added is more complex...<br>https://community.auth0.com/t/how-to-add-roles-and-permissions-to-the-id-token-using-actions/84506<br>TODO the doc above points to get Authorisation methods.<br><br>My auth0 action<br><br>login/post-login npm script…<br></pre>
+
+
+
+<pre class="wp-block-preformatted"><br>exports.onExecutePostLogin = async (event, api) => {<br>  const namespace = 'http://blah.mybusiness.net';<br>  if (event.authorization) {<br>    api.idToken.setCustomClaim(`${namespace}/roles`, event.authorization.roles);<br>  }<br>};</pre>
+]]></content:encoded>
+					
+					<wfw:commentRss>../../../auth0/feed/index.html</wfw:commentRss>
+			<slash:comments>0</slash:comments>
+		
+		
+			</item>
+	</channel>
+</rss>
